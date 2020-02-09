@@ -16,9 +16,9 @@ public class ConexaoConfig {
     public static Connection criaConexao() throws SQLException {
         if( conexao == null){
             try{
-                Class.forName("com.mysql.jdbc.Driver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 System.out.println("Driver foi carregado!");
-                conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/lerolero", "root", "123456");
+                conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/lerolero?useTimezone=true&serverTimezone=UTC&useSSL=false", "root", "123456");
                 System.out.println("Conexao realizada com sucesso!");
             }
             catch(ClassNotFoundException e){
