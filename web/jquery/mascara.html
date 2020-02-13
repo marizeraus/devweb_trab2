@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Olá, mundo!</title>
+  </head>
+  <body>
+	<form>
+	    data
+		<input type="text" class="date" id="date"/><br>
+		Cep
+		<input type="text" class="cep" id="cep"/><br>
+		CPF
+		<input type="text" class="cpf" id="cpf"/><br>
+		Valor (dinheiro)
+		<input type="text" class="money2" id="money2"/><br>
+		Cel 
+		<input type="text" class="phone_with_ddd" id="phone_with_ddd"/><br>
+    </form>
+				
+    <!-- jQuery  -->
+    <script src="jquery-3.4.1.min.js"></script>
+	<script src="jquery.mask.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+		   $('.date').mask('00/00/0000');
+		   $('.cep').mask('00000-000');
+		   $('.cpf').mask('000.000.000-00', {reverse: true});
+		   $('.money2').mask("#.##0,00", {reverse: true});
+		   $('.phone_with_ddd').mask('(00) 0000-0000');
+
+		});
+	</script>
+  </body>
+</html>

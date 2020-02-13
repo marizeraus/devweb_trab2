@@ -3,6 +3,8 @@ package controller;
 import dao.MatriculaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,17 +43,18 @@ public class MatriculaController extends HttpServlet {
 //        if(!request.getParameter("id").isEmpty()){
 //            admin.setId(Integer.parseInt(request.getParameter("id")));
 //        }
-        matricula.setTurmas_id(request.getParameter("turmas_id"));
-        matricula.setNota(request.getParameter("nota"));
-        matricula.setData_matricula(request.getParameter("data_matricula"));
-        matricula.setAlunos_id(request.getParameter("alunos_id"));
+        matricula.setTurmas_id(Integer.parseInt(request.getParameter("turmas_id")));
+        matricula.setNota(Integer.parseInt(request.getParameter("nota")));
+        Date date = Date.valueOf(request.getParameter("data_matricula"));
+        matricula.setData_matricula(date);
+        matricula.setAlunos_id(Integer.parseInt(request.getParameter("alunos_id")));
 
         MatriculaDAO matriculaDAO = new MatriculaDAO();
         if(matriculaDAO.gravar(matricula)){
-            mensagem = "Admin Salvo com sucesso!";
+            mensagem = "Matricula Salvo com sucesso!";
         }
         else{
-            mensagem = "Erro ao gravar admin";
+            mensagem = "Erro ao gravar matricula";
         }
         request.setAttribute("mensagem", mensagem);
         RequestDispatcher rd = request.getRequestDispatcher("/matricula/MatriculaShowJSP.jsp");

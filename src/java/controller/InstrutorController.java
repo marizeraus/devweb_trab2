@@ -1,7 +1,5 @@
-import dao.CursoDAO;
+package controller;
 import dao.InstrutorDAO;
-import model.Curso;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -43,12 +41,12 @@ public class InstrutorController extends HttpServlet {
         instrutor.setLogin(request.getParameter("login"));
         instrutor.setExperiencia(request.getParameter("experiencia"));
         instrutor.setSenha(request.getParameter("senha"));
-        instrutor.setValorhora(request.getParameter("valor_hora"));
+        instrutor.setValorhora(Integer.parseInt(request.getParameter("valor_hora")));
 
 
         InstrutorDAO instrutorDAO = new InstrutorDAO();
-        if(InstrutorDAO.gravar(instrutor)){
-            mensagem = "Instrutpr Salvo com sucesso!";
+        if(instrutorDAO.gravar(instrutor)){
+            mensagem = "Instrutor Salvo com sucesso!";
         }
         else{
             mensagem = "Erro ao gravar instrutor";

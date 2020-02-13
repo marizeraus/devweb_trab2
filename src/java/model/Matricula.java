@@ -6,6 +6,8 @@ public class Matricula {
     private int id, turmas_id, alunos_id;
     private Date data_matricula;
     private double nota;
+    
+    public void Matricula(){}
 
     public int getId() {
         return id;

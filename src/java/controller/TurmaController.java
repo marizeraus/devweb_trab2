@@ -3,6 +3,7 @@ package controller;
 import dao.TurmaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,17 +43,19 @@ public class TurmaController extends HttpServlet {
 //        if(!request.getParameter("id").isEmpty()){
 //            admin.setId(Integer.parseInt(request.getParameter("id")));
 //        }
-        turma.setInstrutores_id(request.getParameter("instrutores_id"));
-        turma.setCursos_id(request.getParameter("cursos_id"));
-        turma.setData_inicio(request.getParameter("data_inicio"));
-        turma.setData_final(request.getParameter("data_final"));
-        turma.setCarga_horaria(request.getParameter("carga_horaria"));
+        turma.setInstrutores_id(Integer.parseInt(request.getParameter("instrutores_id")));
+        turma.setCursos_id(Integer.parseInt(request.getParameter("cursos_id")));
+        Date data_inicio = Date.valueOf(request.getParameter("data_inicio"));
+        Date data_fim = Date.valueOf(request.getParameter("data_fim"));
+        turma.setData_inicio(data_inicio);
+        turma.setData_final(data_fim);
+        turma.setCarga_horaria(Integer.parseInt(request.getParameter("carga_horaria")));
         TurmaDAO turmaDAO = new TurmaDAO();
         if(turmaDAO.gravar(turma)){
-            mensagem = "Admin Salvo com sucesso!";
+            mensagem = "Turma Salvo com sucesso!";
         }
         else{
-            mensagem = "Erro ao gravar admin";
+            mensagem = "Erro ao gravar turma";
         }
         request.setAttribute("mensagem", mensagem);
         RequestDispatcher rd = request.getRequestDispatcher("/turma/TurmaShowJSP.jsp");

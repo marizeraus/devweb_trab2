@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Olá, mundo!</title>
+  </head>
+  <body>
+	<!-- Conteúdo aqui -->
+	<p>Se clicar no botão - desaparece</p>
+	<button id="hide">Hide</button>
+	<button id="show">Show</button>
+				
+    <!-- jQuery  -->
+    <script src="jquery-3.4.1.min.js"></script>
+	
+	<!-- Minhas ações  -->
+	<script>
+	$(document).ready(function(){
+	  $("#hide").click(function(){
+		$("p").hide();
+	  });
+	  $("#show").click(function(){
+		$("p").show();
+	  });
+	});
+	</script>
+  </body>
+</html>
