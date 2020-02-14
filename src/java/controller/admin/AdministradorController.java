@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.admin;
 
-import dao.AdministradorDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -17,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Administrador;
+import service.AdministradorService;
 
 /**
  *
@@ -24,7 +18,7 @@ import model.Administrador;
  */
 @WebServlet(name = "AdministradorController", urlPatterns = {"/AdministradorController"})
 public class AdministradorController extends HttpServlet {
-    private final AdministradorDAO adminDAO = new AdministradorDAO();
+    private final AdministradorService adminService = new AdministradorService();
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -91,7 +85,7 @@ public class AdministradorController extends HttpServlet {
     
     private void listAdmin(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        List<Administrador> listAdmin = adminDAO.listaAdministradores();
+        List<Administrador> listAdmin = adminService.listaAdministradores();
         request.setAttribute("listAdmin", listAdmin);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/AdminList.jsp");
         dispatcher.forward(request, response);
@@ -106,7 +100,7 @@ public class AdministradorController extends HttpServlet {
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Administrador admin = adminDAO.getAdministradorPorID(id);
+        Administrador admin = adminService.getAdministradorPorID(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/AdminFormJSP.jsp");
         request.setAttribute("admin", admin);
         dispatcher.forward(request, response);
@@ -120,7 +114,7 @@ public class AdministradorController extends HttpServlet {
         String senha = request.getParameter("senha");
  
         Administrador novoAdmin = new Administrador(nome,login, senha);
-        adminDAO.gravar(novoAdmin);
+        adminService.gravar(novoAdmin);
         response.sendRedirect("list");
     }
  
@@ -132,14 +126,14 @@ public class AdministradorController extends HttpServlet {
         String senha = request.getParameter("senha");
  
         Administrador admin = new Administrador(id, nome, login, senha);
-        adminDAO.gravar(admin);
+        adminService.gravar(admin);
         response.sendRedirect("list");
     }
  
     private void deleteAdmin(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        adminDAO.excluir(id);
+        adminService.excluir(id);
         response.sendRedirect("list");
     }
 

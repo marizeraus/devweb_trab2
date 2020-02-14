@@ -1,24 +1,24 @@
-package controller;
+package controller.matricula;
 
-import dao.TurmaDAO;
+import dao.MatriculaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Administrador;
-import model.Turma;
+import model.Matricula;
 
 /**
  *
  * @author marco
  */
-@WebServlet(name = "TurmaController", urlPatterns = {"/TurmaController"})
-public class TurmaController extends HttpServlet {
+@WebServlet(name = "MatriculaController", urlPatterns = {"/MatriculaController"})
+public class MatriculaController extends HttpServlet {
 
 
     @Override
@@ -27,7 +27,7 @@ public class TurmaController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            RequestDispatcher rd = request.getRequestDispatcher("/turma/TurmaFormJSP.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/matricula/MatriculaFormJSP.jsp");
             rd.forward(request, response);
         }
     }
@@ -39,26 +39,25 @@ public class TurmaController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String mensagem;
-        Turma turma = new Turma();
+        Matricula matricula = new Matricula();
 //        if(!request.getParameter("id").isEmpty()){
 //            admin.setId(Integer.parseInt(request.getParameter("id")));
 //        }
-        turma.setInstrutores_id(Integer.parseInt(request.getParameter("instrutores_id")));
-        turma.setCursos_id(Integer.parseInt(request.getParameter("cursos_id")));
-        Date data_inicio = Date.valueOf(request.getParameter("data_inicio"));
-        Date data_fim = Date.valueOf(request.getParameter("data_fim"));
-        turma.setData_inicio(data_inicio);
-        turma.setData_final(data_fim);
-        turma.setCarga_horaria(Integer.parseInt(request.getParameter("carga_horaria")));
-        TurmaDAO turmaDAO = new TurmaDAO();
-        if(turmaDAO.gravar(turma)){
-            mensagem = "Turma Salvo com sucesso!";
+        matricula.setTurmas_id(Integer.parseInt(request.getParameter("turmas_id")));
+        matricula.setNota(Integer.parseInt(request.getParameter("nota")));
+        Date date = Date.valueOf(request.getParameter("data_matricula"));
+        matricula.setData_matricula(date);
+        matricula.setAlunos_id(Integer.parseInt(request.getParameter("alunos_id")));
+
+        MatriculaDAO matriculaDAO = new MatriculaDAO();
+        if(matriculaDAO.gravar(matricula)){
+            mensagem = "Matricula Salvo com sucesso!";
         }
         else{
-            mensagem = "Erro ao gravar turma";
+            mensagem = "Erro ao gravar matricula";
         }
         request.setAttribute("mensagem", mensagem);
-        RequestDispatcher rd = request.getRequestDispatcher("/turma/TurmaShowJSP.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/matricula/MatriculaShowJSP.jsp");
         rd.forward(request, response);
 
     }

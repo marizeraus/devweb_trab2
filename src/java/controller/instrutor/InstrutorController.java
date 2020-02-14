@@ -1,25 +1,18 @@
-package controller;
-
-import dao.MatriculaDAO;
+package controller.instrutor;
+import dao.InstrutorDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Matricula;
+import model.Instrutor;
 
-/**
- *
- * @author marco
- */
-@WebServlet(name = "MatriculaController", urlPatterns = {"/MatriculaController"})
-public class MatriculaController extends HttpServlet {
 
+@WebServlet(name = "InstrutorController", urlPatterns = {"/InstrutorController"})
+public class InstrutorController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -27,7 +20,7 @@ public class MatriculaController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            RequestDispatcher rd = request.getRequestDispatcher("/matricula/MatriculaFormJSP.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/instrutor/InstrutorFormJSP.jsp");
             rd.forward(request, response);
         }
     }
@@ -39,25 +32,27 @@ public class MatriculaController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String mensagem;
-        Matricula matricula = new Matricula();
+        Instrutor instrutor = new Instrutor();
 //        if(!request.getParameter("id").isEmpty()){
-//            admin.setId(Integer.parseInt(request.getParameter("id")));
+//            admin.setId(Integer.parseInt(request.getParameter("id")));Curso
 //        }
-        matricula.setTurmas_id(Integer.parseInt(request.getParameter("turmas_id")));
-        matricula.setNota(Integer.parseInt(request.getParameter("nota")));
-        Date date = Date.valueOf(request.getParameter("data_matricula"));
-        matricula.setData_matricula(date);
-        matricula.setAlunos_id(Integer.parseInt(request.getParameter("alunos_id")));
+        instrutor.setNome(request.getParameter("nome"));
+        instrutor.setEmail(request.getParameter("email"));
+        instrutor.setLogin(request.getParameter("login"));
+        instrutor.setExperiencia(request.getParameter("experiencia"));
+        instrutor.setSenha(request.getParameter("senha"));
+        instrutor.setValorhora(Integer.parseInt(request.getParameter("valor_hora")));
 
-        MatriculaDAO matriculaDAO = new MatriculaDAO();
-        if(matriculaDAO.gravar(matricula)){
-            mensagem = "Matricula Salvo com sucesso!";
+
+        InstrutorDAO instrutorDAO = new InstrutorDAO();
+        if(instrutorDAO.gravar(instrutor)){
+            mensagem = "Instrutor Salvo com sucesso!";
         }
         else{
-            mensagem = "Erro ao gravar matricula";
+            mensagem = "Erro ao gravar instrutor";
         }
         request.setAttribute("mensagem", mensagem);
-        RequestDispatcher rd = request.getRequestDispatcher("/matricula/MatriculaShowJSP.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/instrutor/InstrutorShowJSP.jsp");
         rd.forward(request, response);
 
     }
@@ -66,6 +61,6 @@ public class MatriculaController extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
+    }// </editor-fold>
 
 }

@@ -21,17 +21,9 @@ import model.Administrador;
 public class AdministradorDAO {
     private Connection conexao;
     
-    public AdministradorDAO(){
-        try{
+    public AdministradorDAO() throws SQLException, ClassNotFoundException{
             conexao = ConexaoConfig.criaConexao();
-        }
-        catch(Exception e){
-            System.out.println("Erro criação de conexao DAO");
-            System.out.println(e);
-        
-        }
     }
-    
     
     public Administrador getAdministradorPorID(int codigo) {
         Administrador admin = new Administrador();
@@ -50,7 +42,7 @@ public class AdministradorDAO {
             }
         }
         catch(SQLException e){
-            System.out.println("Erro de SQL: "+ e.getMessage());
+            throw new RuntimeException(e);
         }
     return admin;
     }
@@ -61,35 +53,6 @@ public class AdministradorDAO {
             PreparedStatement ps = conexao.prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();
-            return true;
-        }
-        catch(SQLException e){
-            System.out.println("Erro de SQL: "+ e.getMessage());
-            return false;
-        }
-    }
-        
-    public boolean gravar(Administrador admin){
-        try{
-            String sql;
-            if(admin.getId() == 0){
-                sql = "INSERT INTO administrador(nome, login, senha) VALUES (?,?,?)";
-            }
-            else {
-                sql = "UPDATE administrador SET nome=?, login=?, senha=? WHERE id=?";
-            }
-            
-            PreparedStatement ps = conexao.prepareStatement(sql);
-            ps.setString(1, admin.getNome());
-            ps.setString(2, admin.getLogin());
-            ps.setString(3, admin.getSenha());
-            
-            if(admin.getId() > 0){
-                ps.setInt(4, admin.getId());
-            }
-            
-            ps.execute();
-            
             return true;
         }
         catch(SQLException e){
@@ -120,6 +83,35 @@ public class AdministradorDAO {
         }
          
         return listaAdmin;
+    }
+    
+    public boolean gravar(Administrador admin){
+        try{
+            String sql;
+            if(admin.getId() == 0){
+                sql = "INSERT INTO administrador(nome, login, senha) VALUES (?,?,?)";
+            }
+            else {
+                sql = "UPDATE administrador SET nome=?, login=?, senha=? WHERE id=?";
+            }
+            
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setString(1, admin.getNome());
+            ps.setString(2, admin.getLogin());
+            ps.setString(3, admin.getSenha());
+            
+            if(admin.getId() > 0){
+                ps.setInt(4, admin.getId());
+            }
+            
+            ps.execute();
+            
+            return true;
+        }
+        catch(SQLException e){
+            System.out.println("Erro de SQL: "+ e.getMessage());
+            return false;
+        }
     }
     
 }
