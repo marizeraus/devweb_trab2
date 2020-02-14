@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.Administrador;
 
 /**
@@ -66,7 +68,7 @@ public class AdministradorDAO {
             return false;
         }
     }
-    
+        
     public boolean gravar(Administrador admin){
         try{
             String sql;
@@ -94,6 +96,30 @@ public class AdministradorDAO {
             System.out.println("Erro de SQL: "+ e.getMessage());
             return false;
         }
+    }
+    
+    public List<Administrador> listaAdministradores() throws SQLException {
+        List<Administrador> listaAdmin = new ArrayList<>();
+         
+        String sql = "SELECT * FROM administrador";
+        PreparedStatement ps = conexao.prepareStatement(sql);
+        try (ResultSet resultSet = ps.executeQuery(sql)) {
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String nome = resultSet.getString("nome");
+                String login = resultSet.getString("login");
+                String senha = resultSet.getString("senha");
+                
+                Administrador admin = new Administrador();
+                admin.setId(id);
+                admin.setLogin(login);
+                admin.setNome(nome);
+                admin.setSenha(senha);
+                listaAdmin.add(admin);
+            }
+        }
+         
+        return listaAdmin;
     }
     
 }
