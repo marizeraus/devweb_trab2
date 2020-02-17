@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Olá, mundo!</title>
+  </head>
+  <body>
+	<form id="formulario">
+		<label>Digite o seu nome:</label><br>
+		<input type="text" name="nome"><br><br>
+		<label>Digite seu senha:</label><br>
+		<input type="text" name="senha"><br><br>
+		<input type="submit" value="Enviar!">
+    </form>
+				
+    <!-- jQuery  -->
+    <script src="jquery-3.4.1.min.js"></script>
+	<script src="jquery.validate.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+			$("#formulario").validate({
+			   rules: { 
+					nome: { required: true, minlength: 5	},
+					senha: { required: true, minlength: 5	}
+			   },
+			   messages: {
+			      nome: { required: " Nome - obrigatorio",
+			             minlength: " O nome de possuir no minimo 5 letras" },
+				 senha: { required: " senha- obrigatorio",
+			              minlength: " O nome de possuir no minimo 5 letras" }
+			   }
+			});
+		});
+	</script>
+  </body>
+</html>

@@ -69,10 +69,10 @@ public class InstrutorDAO {
         try{
             String sql;
             if(instrutor.getId() == 0){
-                sql = "INSERT INTO instrutor(nome, email, valor_hora, login, senha, experiencia) VALUES (?,?,?,?,?)";
+                sql = "INSERT INTO instrutores(nome, email, valor_hora, login, senha, experiencia) VALUES (?,?,?,?,?,?)";
             }
             else {
-                sql = "UPDATE instrutor SET nome=?, email=?, valor_hora=?, login=?, senha=?, experiencia=? WHERE id=?";
+                sql = "UPDATE instrutores SET nome=?, email=?, valor_hora=?, login=?, senha=?, experiencia=? WHERE id=?";
             }
             
             PreparedStatement ps = conexao.prepareStatement(sql);

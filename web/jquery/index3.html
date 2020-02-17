@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Olá, mundo!</title>
+	<style>
+	.meu_header { color: #7c795d;
+		font-family: 'Trocchi', serif; 
+		font-size: 45px; 
+		font-weight: normal;
+		line-height: 48px;
+		margin: 0; 
+		}
+	</style>
+  </head>
+  <body>
+	<!-- Conteúdo aqui -->
+    	<h2 class="meu_header">Isso é um heading</h2>
+		<p id="para1">Isso é um parágrafo.</p>
+		<p id="para2">Isso é um outro parágrafo.</p>
+		<button>Me Clicar</button>
+				
+    <!-- jQuery  -->
+    <script src="jquery-3.4.1.min.js"></script>
+	
+	<!-- Minhas ações  -->
+	<script>
+		$(document).ready(function(){
+			$("button").click(function(){
+				$("p").hide();
+			});
+			
+			$("p").click(function(){
+			  alert('isso é um parágrafo');
+			});
+			
+			$("#para1").click(function(){
+			  alert('Primeiro parágrafo');
+			});
+			
+			$("#para2").click(function(){
+			  alert('Segundo parágrafo.');
+			});
+			
+			$(".meu_header").click(function(){
+			  alert('Meu header');
+			});
+		});
+	</script>
+  </body>
+</html>

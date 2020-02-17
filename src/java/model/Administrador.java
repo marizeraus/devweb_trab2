@@ -18,6 +18,23 @@ public class Administrador {
     
     public Administrador(){}
     
+    public Administrador(int id){
+        this.id = id;
+    }
+    
+    public Administrador(int id,String nome, String login, String senha){
+        this.id = id;
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+    }
+    
+    public Administrador(String nome, String login, String senha){
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+    }
+    
     public int getId(){
         return this.id;
     }
